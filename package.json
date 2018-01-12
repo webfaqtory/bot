@@ -1,0 +1,27 @@
+{
+  "name": "bot",
+  "version": "0.1.0",
+  "description": "A GDAX trading bot",
+  "main": "index.js",
+  "directories": {
+    "example": "examples",
+    "lib": "lib",
+    "test": "test"
+  },
+  "dependencies": {
+    "chai": "^4.1.2",
+    "gdax": "^0.5.1"
+  },
+  "devDependencies": {
+    "mocha": "^4.1.0"
+  },
+  "scripts": {
+    "test": "make test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:webfaqtory/bot.git"
+  },
+  "author": "John Burch",
+  "license": "ISC"
+}
