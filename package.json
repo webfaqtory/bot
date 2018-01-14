@@ -10,7 +10,11 @@
   },
   "dependencies": {
     "chai": "^4.1.2",
-    "gdax": "^0.5.1"
+    "fixed-array": "^1.0.0",
+    "gdax": "^0.5.1",
+    "https": "^1.0.0",
+    "mysql": "^2.15.0",
+    "uuid": "^3.1.0"
   },
   "devDependencies": {
     "mocha": "^4.1.0"
