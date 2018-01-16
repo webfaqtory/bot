@@ -1,4 +1,4 @@
-const save = false;
+const save = true;
 
 var websocket       = null;
 var users           = {};
@@ -50,11 +50,13 @@ var request = https.request(opt, function (res) {
         con.connect(function(err) {
             if (err) throw err;
         });
+        /*
         if (save) {
             con.query("DELETE FROM bot", function (err, result) {
                 if (err) throw err;
             });
         }
+        */
         con.query("SELECT * FROM bot_config", function(err, rows, fields) {
             if (err) throw err;
             margin          = rows[0].margin;
