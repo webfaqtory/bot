@@ -1,4 +1,4 @@
-const save = true;
+const save = false;
 
 var websocket       = null;
 var users           = {};
@@ -26,6 +26,7 @@ const https         = require('https');
 const mysql         = require('mysql');
 const uuidv1        = require('uuid/v1');
 const fixedArray    = require("fixed-array");
+const childProcess  = require('child_process');
 
 // Setup MySQL
 var opt = {
@@ -50,13 +51,11 @@ var request = https.request(opt, function (res) {
         con.connect(function(err) {
             if (err) throw err;
         });
-        /*
         if (save) {
             con.query("DELETE FROM bot", function (err, result) {
                 if (err) throw err;
             });
         }
-        */
         con.query("SELECT * FROM bot_config", function(err, rows, fields) {
             if (err) throw err;
             margin          = rows[0].margin;
@@ -115,9 +114,11 @@ function getUsers() {
         res.on('end', function () {
             users = JSON.parse(data);
             for (var key in users) {
-                users[key].client = new Gdax.AuthenticatedClient(users[key].api_key, users[key].api_secret, users[key].passphrase, apiURL);
+                users[key].apiURI = apiURL;
+                users[key].amount = amount;
+                users[key].product = product;
             }
-            doDeal('sell', price);
+            doDeal('buy', price);
         });
     });
     request.end();
@@ -179,14 +180,28 @@ function websocketConnect() {
                     console.log("none");
                 }
                 if (mode == "buy" && currentPrice > lastPrice) {
-                    // we are in Buy mood and price has risen. See if risen for last 4 times + now
-                    if (values[0] < values[1] && values[1] < values[2] && values[2] < values[3] && values[3] < currentPrice) {
+                    // we are in Buy mood and price has risen. See if risen for last logLength-1 times + now
+                    var go = true;
+                    for (var i = 1; i < logLength; i++) {
+                        if (values[i-1] >= values[i]) {
+                            go = false;
+                            break;
+                        }
+                    }
+                    if (go && values[logLength - 1] < currentPrice) {
                         action = "buy";
                         value = parseFloat(data.best_bid) + 0.1;
                     }
                 }else if (mode == "sell" && currentPrice < lastPrice) {
-                    // we are in Sell mood and price has fallen. See if fallen for last 4 times + now
-                    if (values[0] > values[1] && values[1] > values[2] && values[2] > values[3] && values[3] > currentPrice) {
+                    // we are in Sell mood and price has fallen. See if fallen for last logLength-1 times + now
+                    var go = true;
+                    for (var i = 1; i < logLength; i++) {
+                        if (values[i-1] <= values[i]) {
+                            go = false;
+                            break;
+                        }
+                    }
+                    if (go && values[logLength - 1] > currentPrice) {
                         action = "sell";
                         value = parseFloat(data.best_bid) - 0.1;
                     }
@@ -219,42 +234,62 @@ function websocketConnect() {
 
 function doDeal(action, value) {
     for (var key in users) {
-        doUserDeal(users[key], action, value)
+        users[key].action = action;
+        users[key].value = value;
+        childProcess.fork('userDeal.js', [JSON.stringify(users[key])]);
     };
-    con.query("UPDATE bot_last SET price = ?", [value], function (err, result) {
-        if (err) throw err;
-    });
+    if (save) {
+        con.query("UPDATE bot_last SET price = ?", [value], function (err, result) {
+            if (err) throw err;
+        });
+    }
 }
 
 function doUserDeal(user, action, value) {
     if (action == "buy") {
-        // Use Euro account
-        var size = 0;
-        if (user.euro.available > 1) {
-            if (amount) {
-                size = amount / value;
-            } else {
-                size = parseFloat(user.euro.available) / value
-            }
-            const params = {
-                'side': action,
-                'price': value,
-                'size': size.toFixed(8),
-                'product_id': product,
-                'post_only': true,
-                'client_oid': uuidv1()
-            };
-            /*
-            user.client
-                .buy(params)
+        // Cancel all open orders
+        user.client
+            .getOrders()
+            .then(data => {
+                user.client
+                .getAccount(user.euro.id)
                 .then(data => {
-                    var a=1;
+                    var size = 0;
+                    if (data.available > 1) {
+                        if (amount) {
+                            size = amount / value;
+                        } else {
+                            size = parseFloat(data.available) / value
+                        }
+                        const params = {
+                            'side': action,
+                            'price': value,
+                            'size': size.toFixed(8),
+                            'product_id': product,
+                            'post_only': true,
+                            'client_oid': uuidv1()
+                        };
+                        /*
+                        user.client
+                            .buy(params)
+                            .then(data => {
+                                var a=1;
+                        })
+                        .catch(error => {
+                            // handle the error
+                        });
+                        */
+                    }
+                })
+                .catch(error => {
+                    // handle the error
+                });
             })
             .catch(error => {
                 // handle the error
             });
-            */
-        }
+        // Use Euro account
+
     }else{
         // Use Currency account
         var size = 0;
