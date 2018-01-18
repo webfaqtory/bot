@@ -1,15 +1,16 @@
-var user    = JSON.parse(process.argv[2]);
-//var user      = JSON.parse('{"uid":"46","name":"mark","email":"mark@maxdb.com","api_key":" 47d4782eb550cc942fd4d4c03a781ce1","api_secret":"7SmIsjLwz4Tu5PrK2bw7+Q563lDkweoiQYgxQWjyRi3Yr3EU36QcflJ0bTTqlmiDY3h1Qn7i2nOz9C9sFhlC7w==","passphrase":"p1zahucbd6l","currency":"1f67825c-e662-4afc-9885-cac53b871771","trading":false,"pushbullet":null,"euro":"eafc2edf-8298-4062-9241-fd7c304e8856","apiURI":"https://api.gdax.com","amount":0,"product":"ETH-EUR","action":"buy","value":909.15}');
+const user    = JSON.parse(process.argv[2]);
+//const user    = JSON.parse('{"uid":"46","name":"mark","email":"mark@maxdb.com","api_key":" 47d4782eb550cc942fd4d4c03a781ce1","api_secret":"7SmIsjLwz4Tu5PrK2bw7+Q563lDkweoiQYgxQWjyRi3Yr3EU36QcflJ0bTTqlmiDY3h1Qn7i2nOz9C9sFhlC7w==","passphrase":"p1zahucbd6l","currency":"1f67825c-e662-4afc-9885-cac53b871771","trading":false,"pushbullet":null,"euro":"eafc2edf-8298-4062-9241-fd7c304e8856","apiURI":"https://api.gdax.com","amount":0,"product":"ETH-EUR","action":"buy","value":909.15}');
 
 const Gdax    = require('gdax');
 const uuidv1  = require('uuid/v1');
 const client  = new Gdax.AuthenticatedClient(user.api_key, user.api_secret, user.passphrase, user.apiURI);
 
 console.log(user.name);
+return;
 if (user.action == "buy") {
     // Cancel all open orders
     client
-        .getOrders()
+        .cancelOrders()
         .then(data => {
             // Use Euro account
             client
