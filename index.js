@@ -192,7 +192,7 @@ function websocketConnect() {
                     }
                     if (go && values[logLength - 1] < currentPrice) {
                         action = "buy";
-                        value = parseFloat(data.best_bid) + 0.1;
+                        value = parseFloat(data.best_bid);
                     }
                 }else if (mode == "sell" && currentPrice < lastPrice) {
                     // we are in Sell mood and price has fallen. See if fallen for last logLength-1 times + now
@@ -205,7 +205,7 @@ function websocketConnect() {
                     }
                     if (go && values[logLength - 1] > currentPrice) {
                         action = "sell";
-                        value = parseFloat(data.best_bid) - 0.1;
+                        value = parseFloat(data.best_bid);
                     }
                 }
                 if (action) {

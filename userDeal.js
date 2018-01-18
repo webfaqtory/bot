@@ -1,5 +1,5 @@
-//const user    = JSON.parse(process.argv[2]);
-const user    = JSON.parse('{"uid":"46","name":"mark","email":"mark@maxdb.com","api_key":" 47d4782eb550cc942fd4d4c03a781ce1","api_secret":"7SmIsjLwz4Tu5PrK2bw7+Q563lDkweoiQYgxQWjyRi3Yr3EU36QcflJ0bTTqlmiDY3h1Qn7i2nOz9C9sFhlC7w==","passphrase":"p1zahucbd6l","currency":"1f67825c-e662-4afc-9885-cac53b871771","trading":false,"pushbullet":null,"euro":"eafc2edf-8298-4062-9241-fd7c304e8856","apiURI":"https://api.gdax.com","amount":0,"product":"ETH-EUR","action":"sell","value":920}');
+const user    = JSON.parse(process.argv[2]);
+//const user    = JSON.parse('{"uid":"46","name":"mark","email":"mark@maxdb.com","api_key":" 47d4782eb550cc942fd4d4c03a781ce1","api_secret":"7SmIsjLwz4Tu5PrK2bw7+Q563lDkweoiQYgxQWjyRi3Yr3EU36QcflJ0bTTqlmiDY3h1Qn7i2nOz9C9sFhlC7w==","passphrase":"p1zahucbd6l","currency":"1f67825c-e662-4afc-9885-cac53b871771","trading":false,"pushbullet":null,"euro":"eafc2edf-8298-4062-9241-fd7c304e8856","apiURI":"https://api.gdax.com","amount":0,"product":"ETH-EUR","action":"buy","value":930}');
 
 const Gdax    = require('gdax');
 const uuidv1  = require('uuid/v1');
@@ -18,7 +18,9 @@ if (user.action == "buy") {
                         if (user.amount) {
                             size = user.amount / user.value;
                         } else {
-                            size = parseFloat(data.available) / user.value
+                            var fee = parseFloat(data.available) * (0.3/100);
+                            data.available = parseFloat(data.available) - fee;
+                            size = data.available / user.value
                         }
                         const params = {
                             'side': user.action,
@@ -27,7 +29,6 @@ if (user.action == "buy") {
                             'product_id': user.product,
                             'client_oid': uuidv1()
                         };
-                        /*
                         client
                             .buy(params)
                             .then(data => {
@@ -39,7 +40,6 @@ if (user.action == "buy") {
                         .catch(error => {
                             console.log(error);
                         });
-                        */
                         console.log("Buy = " + user.value + ", Size = " + size + " for " + user.name);
                     }
                 })
