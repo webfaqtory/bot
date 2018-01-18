@@ -1,4 +1,4 @@
-const save = false;
+const save = true;
 
 var websocket       = null;
 var users           = {};
@@ -118,7 +118,7 @@ function getUsers() {
                 users[key].amount = amount;
                 users[key].product = product;
             }
-            doDeal('buy', price);
+            //doDeal('buy', price);
         });
     });
     request.end();
@@ -153,7 +153,7 @@ function websocketConnect() {
     websocket.on('message', data => {
         if (data.type == 'ticker') {
             //console.log(data);
-            currentPrice = parseFloat(data.price).toFixed(1);
+            currentPrice = parseFloat(parseFloat(data.price).toFixed(1));
             if (!price) {
                 price = currentPrice;
                 for(var i = 0; i < logLength; i++) {
@@ -174,11 +174,13 @@ function websocketConnect() {
                 }else {
                     mode = "";
                 }
+                /*
                 if (mode) {
                     console.log(mode);
                 }else{
                     console.log("none");
                 }
+                */
                 if (mode == "buy" && currentPrice > lastPrice) {
                     // we are in Buy mood and price has risen. See if risen for last logLength-1 times + now
                     var go = true;
@@ -242,81 +244,5 @@ function doDeal(action, value) {
         con.query("UPDATE bot_last SET price = ?", [value], function (err, result) {
             if (err) throw err;
         });
-    }
-}
-
-function doUserDeal(user, action, value) {
-    if (action == "buy") {
-        // Cancel all open orders
-        user.client
-            .getOrders()
-            .then(data => {
-                user.client
-                .getAccount(user.euro.id)
-                .then(data => {
-                    var size = 0;
-                    if (data.available > 1) {
-                        if (amount) {
-                            size = amount / value;
-                        } else {
-                            size = parseFloat(data.available) / value
-                        }
-                        const params = {
-                            'side': action,
-                            'price': value,
-                            'size': size.toFixed(8),
-                            'product_id': product,
-                            'post_only': true,
-                            'client_oid': uuidv1()
-                        };
-                        /*
-                        user.client
-                            .buy(params)
-                            .then(data => {
-                                var a=1;
-                        })
-                        .catch(error => {
-                            // handle the error
-                        });
-                        */
-                    }
-                })
-                .catch(error => {
-                    // handle the error
-                });
-            })
-            .catch(error => {
-                // handle the error
-            });
-        // Use Euro account
-
-    }else{
-        // Use Currency account
-        var size = 0;
-        if (user.currency.available > 1) {
-            if (amount) {
-                size = amount;
-            }else{
-                size = parseFloat(user.currency.available);
-            }
-            const params = {
-                'side': action,
-                'price': value,
-                'size': size.toFixed(8),
-                'product_id': product,
-                'post_only': true,
-                'client_oid': uuidv1()
-            };
-            /*
-            user.client
-                .sell(params)
-                .then(data => {
-                    var a=1;
-            })
-            .catch(error => {
-                // handle the error
-            });
-            */
-        }
     }
 }
