@@ -116,8 +116,8 @@ function getUsers() {
         });
         res.on('end', function () {
             users = JSON.parse(data);
-            console.log(user.name);
             for (var key in users) {
+                console.log(users[key].name);
                 users[key].apiURI = apiURL;
                 users[key].amount = amount;
                 users[key].product = product;
