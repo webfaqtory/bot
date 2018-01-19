@@ -51,11 +51,13 @@ var request = https.request(opt, function (res) {
         con.connect(function(err) {
             if (err) throw err;
         });
+        /*
         if (save) {
             con.query("DELETE FROM bot", function (err, result) {
                 if (err) throw err;
             });
         }
+        */
         con.query("SELECT * FROM bot_config", function(err, rows, fields) {
             if (err) throw err;
             margin          = rows[0].margin;
@@ -230,8 +232,7 @@ function websocketConnect() {
     websocket.on('error', err => { /* handle error */ });
     websocket.on('close', () => {
         console.log("Websocket closed");
-        setTimeout(websocketConnect, 500);
-        return;
+        process.exit(1); // Whe running under supervisor, will get restarted
     });
 }
 
