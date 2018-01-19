@@ -81,9 +81,10 @@ var request = https.request(opt, function (res) {
             // Now got all config
             setTimeout(startup, 500);
         });
-        con.query("SELECT price FROM bot_last", function(err, rows, fields) {
+        con.query("SELECT price, action FROM bot_last", function(err, rows, fields) {
             if (err) throw err;
             price = rows[0].price;
+            lastMode = rows[0].action;
             if (price) {
                 for(var i = 0; i < logLength; i++) {
                     log.push(price);
@@ -162,7 +163,7 @@ function websocketConnect() {
             }
             if (lastPrice != currentPrice) {
                 var action = "";
-                var value = "";
+                var value = 0;
                 var values = log.values();
                 // Are we in a buy or sell mood
                 if (currentPrice > (price + margin) && (lastMode == "buy" || !lastMode)) {
@@ -205,7 +206,7 @@ function websocketConnect() {
                     }
                     if (go && values[logLength - 1] > currentPrice) {
                         action = "sell";
-                        value = parseFloat(data.best_bid);
+                        value = parseFloat(data.best_bid) - 0.5;
                     }
                 }
                 if (action) {
@@ -241,7 +242,7 @@ function doDeal(action, value) {
         childProcess.fork('userDeal.js', [JSON.stringify(users[key])]);
     };
     if (save) {
-        con.query("UPDATE bot_last SET price = ?", [value], function (err, result) {
+        con.query("UPDATE bot_last SET price = ?, action = ?", [value, action], function (err, result) {
             if (err) throw err;
         });
     }
