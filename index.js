@@ -18,8 +18,9 @@ var wsURL           = "";
 var apiURL          = "";
 var product         = "";
 var currency        = "";
+var dbConnect       = "";
 
-const amount        = 0;
+const date          = new Date();
 const remote        = process.argv[2];
 const Gdax          = require('gdax');
 const https         = require('https');
@@ -27,6 +28,7 @@ const mysql         = require('mysql');
 const uuidv1        = require('uuid/v1');
 const fixedArray    = require("fixed-array");
 const childProcess  = require('child_process');
+var history         = fixedArray(100);
 
 // Setup MySQL
 var opt = {
@@ -41,12 +43,13 @@ var request = https.request(opt, function (res) {
         data += chunk;
     });
     res.on('end', function () {
-        var arr = data.toString().split(",");
+        dbConnect = data.toString().split(",");
+        dbConnect[0] = remote;
         con = mysql.createConnection({
-            host            : remote,
-            user            : arr[1],
-            password        : arr[2],
-            database        : arr[3]
+            host            : dbConnect[0],
+            user            : dbConnect[1],
+            password        : dbConnect[2],
+            database        : dbConnect[3]
         });
         con.connect(function(err) {
             if (err) throw err;
@@ -117,12 +120,14 @@ function getUsers() {
         res.on('end', function () {
             users = JSON.parse(data);
             for (var key in users) {
-                console.log(users[key].name);
-                users[key].apiURI = apiURL;
-                users[key].amount = amount;
-                users[key].product = product;
+                console.log(date.toLocaleString() + " User = " + users[key].name);
+                users[key].apiURI       = apiURL;
+                users[key].product      = product;
+                users[key].dbConnect    = dbConnect;
+                users[key].key          = key;
             }
-            //doDeal('buy', price);
+            userOrders();
+            doDeal('buy', price);
         });
     });
     request.end();
@@ -168,6 +173,7 @@ function websocketConnect() {
                 var action = "";
                 var value = 0;
                 var values = log.values();
+                history.push(currentPrice);
                 // Are we in a buy or sell mood
                 if (currentPrice > (price + margin) && (lastMode == "buy" || !lastMode)) {
                     // Up
@@ -178,13 +184,6 @@ function websocketConnect() {
                 }else {
                     mode = "";
                 }
-                /*
-                if (mode) {
-                    console.log(mode);
-                }else{
-                    console.log("none");
-                }
-                */
                 if (mode == "buy" && currentPrice > lastPrice) {
                     // we are in Buy mood and price has risen. See if risen for last logLength-1 times + now
                     var go = true;
@@ -232,8 +231,8 @@ function websocketConnect() {
     });
     websocket.on('error', err => { /* handle error */ });
     websocket.on('close', () => {
-        console.log("Websocket closed");
-        process.exit(1); // Whe running under supervisor, will get restarted
+        console.log(date.toLocaleString() + " " + "Websocket closed");
+        process.exit(1); // When running under supervisor, will get restarted
     });
 }
 
@@ -241,11 +240,19 @@ function doDeal(action, value) {
     for (var key in users) {
         users[key].action = action;
         users[key].value = value;
-        childProcess.fork('userDeal.js', [JSON.stringify(users[key])]);
+        var json = JSON.stringify(users[key]);
+        childProcess.fork('userDeal.js', [json]);
     };
     if (save) {
         con.query("UPDATE bot_last SET price = ?, action = ?", [value, action], function (err, result) {
             if (err) throw err;
         });
     }
+}
+
+function userOrders() {
+    var data = {users: users, dbConnect: dbConnect}
+    var json = JSON.stringify(data);
+    childProcess.fork('userOrders.js', [json]);
+    process.exit();
 }
