@@ -4,9 +4,8 @@
     <list default="true" id="a33cd0b3-4a63-4656-b073-e2882dd965fc" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change beforePath="$PROJECT_DIR$/index.js" afterPath="$PROJECT_DIR$/index.js" />
-      <change beforePath="$PROJECT_DIR$/userDeal.js" afterPath="$PROJECT_DIR$/userDeal.js" />
-      <change beforePath="$PROJECT_DIR$/userOrderUpdate.js" afterPath="$PROJECT_DIR$/userOrderUpdate.js" />
-      <change beforePath="$PROJECT_DIR$/userOrders.js" afterPath="$PROJECT_DIR$/userOrders.js" />
+      <change beforePath="$PROJECT_DIR$/package-lock.json" afterPath="$PROJECT_DIR$/package-lock.json" />
+      <change beforePath="$PROJECT_DIR$/package.json" afterPath="$PROJECT_DIR$/package.json" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -20,11 +19,21 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="index.js" pinned="false" current-in-tab="true">
+      <file leaf-file-name="index.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/index.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-3690">
-              <caret line="21" column="0" lean-forward="true" selection-start-line="21" selection-start-column="0" selection-end-line="21" selection-end-column="0" />
+            <state relative-caret-position="-1809">
+              <caret line="133" column="25" lean-forward="false" selection-start-line="133" selection-start-column="25" selection-end-line="133" selection-end-column="25" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="watchdog.js" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/watchdog.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="526">
+              <caret line="41" column="0" lean-forward="true" selection-start-line="41" selection-start-column="0" selection-end-line="41" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -33,8 +42,8 @@
       <file leaf-file-name="userOrders.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/userOrders.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="270">
-              <caret line="15" column="23" lean-forward="true" selection-start-line="15" selection-start-column="23" selection-end-line="15" selection-end-column="23" />
+            <state relative-caret-position="90">
+              <caret line="5" column="6" lean-forward="false" selection-start-line="5" selection-start-column="6" selection-end-line="5" selection-end-column="6" />
               <folding />
             </state>
           </provider>
@@ -43,8 +52,8 @@
       <file leaf-file-name="userOrderUpdate.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/userOrderUpdate.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="234">
-              <caret line="13" column="23" lean-forward="true" selection-start-line="13" selection-start-column="23" selection-end-line="13" selection-end-column="23" />
+            <state relative-caret-position="0">
+              <caret line="0" column="0" lean-forward="true" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -79,6 +88,7 @@
       <find>limit</find>
       <find>mark</find>
       <find>amount</find>
+      <find>process</find>
     </findStrings>
     <replaceStrings>
       <replace>product</replace>
@@ -94,6 +104,7 @@
         <option value="$PROJECT_DIR$/userOrderUpdate.js" />
         <option value="$PROJECT_DIR$/userOrders.js" />
         <option value="$PROJECT_DIR$/index.js" />
+        <option value="$PROJECT_DIR$/watchdog.js" />
       </list>
     </option>
   </component>
@@ -162,23 +173,26 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Node.js.index.js">
+  <component name="RunManager" selected="Node.js.watchdog.js">
     <configuration name="index.js" type="NodeJSConfigurationType" factoryName="Node.js" application-parameters="www.johnburch.co.uk" path-to-js-file="index.js" working-dir="$PROJECT_DIR$" />
     <configuration name="userDeal.js" type="NodeJSConfigurationType" factoryName="Node.js" temporary="true" path-to-js-file="userDeal.js" working-dir="$PROJECT_DIR$" />
     <configuration name="userOrderUpdate.js" type="NodeJSConfigurationType" factoryName="Node.js" temporary="true" path-to-js-file="userOrderUpdate.js" working-dir="$PROJECT_DIR$" />
     <configuration name="userOrders.js" type="NodeJSConfigurationType" factoryName="Node.js" temporary="true" path-to-js-file="userOrders.js" working-dir="$PROJECT_DIR$" />
-    <list size="5">
+    <configuration name="watchdog.js" type="NodeJSConfigurationType" factoryName="Node.js" temporary="true" application-parameters="www.johnburch.co.uk" path-to-js-file="watchdog.js" working-dir="$PROJECT_DIR$" />
+    <list size="6">
       <item index="0" class="java.lang.String" itemvalue="Node.js.bin/www" />
       <item index="1" class="java.lang.String" itemvalue="Node.js.index.js" />
       <item index="2" class="java.lang.String" itemvalue="Node.js.userDeal.js" />
       <item index="3" class="java.lang.String" itemvalue="Node.js.userOrders.js" />
       <item index="4" class="java.lang.String" itemvalue="Node.js.userOrderUpdate.js" />
+      <item index="5" class="java.lang.String" itemvalue="Node.js.watchdog.js" />
     </list>
     <recent_temporary>
-      <list size="3">
-        <item index="0" class="java.lang.String" itemvalue="Node.js.userOrderUpdate.js" />
-        <item index="1" class="java.lang.String" itemvalue="Node.js.userOrders.js" />
-        <item index="2" class="java.lang.String" itemvalue="Node.js.userDeal.js" />
+      <list size="4">
+        <item index="0" class="java.lang.String" itemvalue="Node.js.watchdog.js" />
+        <item index="1" class="java.lang.String" itemvalue="Node.js.userOrderUpdate.js" />
+        <item index="2" class="java.lang.String" itemvalue="Node.js.userOrders.js" />
+        <item index="3" class="java.lang.String" itemvalue="Node.js.userDeal.js" />
       </list>
     </recent_temporary>
   </component>
@@ -202,15 +216,15 @@
       <workItem from="1515968105485" duration="29324000" />
       <workItem from="1516062058698" duration="22511000" />
       <workItem from="1516279810160" duration="8904000" />
-      <workItem from="1516404654104" duration="15792000" />
+      <workItem from="1516404654104" duration="20466000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="143594000" />
+    <option name="totallyTimeSpent" value="148268000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="65" y="102" width="1857" height="1212" extended-state="6" />
+    <frame x="65" y="102" width="1857" height="1092" extended-state="6" />
     <editor active="true" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.19892183" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
@@ -219,12 +233,12 @@
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.2597137" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.2586912" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="npm" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.29872495" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.29856852" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -249,7 +263,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/index.js</url>
-          <line>245</line>
+          <line>247</line>
           <option name="timeStamp" value="178" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">
@@ -295,41 +309,26 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/index.js</url>
-          <line>257</line>
+          <line>260</line>
           <properties lambdaOrdinal="-1" />
           <option name="timeStamp" value="205" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="javascript">
-          <url>file://$PROJECT_DIR$/userOrders.js</url>
-          <line>20</line>
-          <properties lambdaOrdinal="-1" />
-          <option name="timeStamp" value="209" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="javascript">
-          <url>file://$PROJECT_DIR$/userOrderUpdate.js</url>
-          <line>24</line>
-          <properties lambdaOrdinal="-1" />
-          <option name="timeStamp" value="212" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="javascript">
-          <url>file://$PROJECT_DIR$/userOrderUpdate.js</url>
-          <line>18</line>
-          <properties lambdaOrdinal="-1" />
-          <option name="timeStamp" value="214" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="javascript">
-          <url>file://$PROJECT_DIR$/index.js</url>
-          <line>228</line>
-          <properties lambdaOrdinal="-1" />
-          <option name="timeStamp" value="217" />
         </line-breakpoint>
       </breakpoints>
       <breakpoints-dialog>
         <breakpoints-dialog />
       </breakpoints-dialog>
-      <option name="time" value="219" />
+      <option name="time" value="232" />
     </breakpoint-manager>
     <watches-manager />
+  </component>
+  <component name="debuggerHistoryManager">
+    <expressions id="setValue">
+      <expression>
+        <expression-string>700</expression-string>
+        <language-id>JavaScript</language-id>
+        <evaluation-mode>EXPRESSION</evaluation-mode>
+      </expression>
+    </expressions>
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/index.js">
@@ -570,26 +569,34 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/userOrderUpdate.js">
+    <entry file="file://$PROJECT_DIR$/userOrders.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="234">
-          <caret line="13" column="23" lean-forward="true" selection-start-line="13" selection-start-column="23" selection-end-line="13" selection-end-column="23" />
+        <state relative-caret-position="90">
+          <caret line="5" column="6" lean-forward="false" selection-start-line="5" selection-start-column="6" selection-end-line="5" selection-end-column="6" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/userOrders.js">
+    <entry file="file://$PROJECT_DIR$/userOrderUpdate.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="270">
-          <caret line="15" column="23" lean-forward="true" selection-start-line="15" selection-start-column="23" selection-end-line="15" selection-end-column="23" />
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="true" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/index.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-3690">
-          <caret line="21" column="0" lean-forward="true" selection-start-line="21" selection-start-column="0" selection-end-line="21" selection-end-column="0" />
+        <state relative-caret-position="-1809">
+          <caret line="133" column="25" lean-forward="false" selection-start-line="133" selection-start-column="25" selection-end-line="133" selection-end-column="25" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/watchdog.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="526">
+          <caret line="41" column="0" lean-forward="true" selection-start-line="41" selection-start-column="0" selection-end-line="41" selection-end-column="0" />
           <folding />
         </state>
       </provider>

@@ -54,6 +54,10 @@ var request = https.request(opt, function (res) {
         con.connect(function(err) {
             if (err) throw err;
         });
+        var pid = process.pid;
+        con.query("UPDATE bot_last SET pid = ?", [process.pid], function (err, result) {
+            if (err) throw err;
+        });
         /*
         if (save) {
             con.query("DELETE FROM bot", function (err, result) {
@@ -127,6 +131,7 @@ function getUsers() {
                 users[key].key          = key;
             }
             //doDeal('buy', price);
+            userOrders();
         });
     });
     request.end();
@@ -225,9 +230,6 @@ function websocketConnect() {
                     // Only save to log if within sell or buy
                     log.push(currentPrice);
                 }
-                if (Object.keys(users).length) {
-                    userOrders();
-                }
             }
         }
     });
@@ -253,7 +255,10 @@ function doDeal(action, value) {
 }
 
 function userOrders() {
-    var data = {users: users, dbConnect: dbConnect}
-    var json = JSON.stringify(data);
-    childProcess.fork('userOrders.js', [json]);
+    if (Object.keys(users).length) {
+        var data = {users: users, dbConnect: dbConnect}
+        var json = JSON.stringify(data);
+        childProcess.fork('userOrders.js', [json]);
+    }
+    setTimeout(userOrders, 30000);
 }
