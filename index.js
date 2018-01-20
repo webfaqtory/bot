@@ -126,8 +126,7 @@ function getUsers() {
                 users[key].dbConnect    = dbConnect;
                 users[key].key          = key;
             }
-            userOrders();
-            doDeal('buy', price);
+            //doDeal('buy', price);
         });
     });
     request.end();
@@ -226,6 +225,9 @@ function websocketConnect() {
                     // Only save to log if within sell or buy
                     log.push(currentPrice);
                 }
+                if (Object.keys(users).length) {
+                    userOrders();
+                }
             }
         }
     });
@@ -254,5 +256,4 @@ function userOrders() {
     var data = {users: users, dbConnect: dbConnect}
     var json = JSON.stringify(data);
     childProcess.fork('userOrders.js', [json]);
-    process.exit();
 }
