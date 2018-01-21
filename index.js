@@ -19,6 +19,7 @@ var apiURL          = "";
 var product         = "";
 var currency        = "";
 var dbConnect       = "";
+var lm              = "";
 
 const date          = new Date();
 const remote        = process.argv[2];
@@ -224,6 +225,12 @@ function websocketConnect() {
                     con.query("INSERT INTO bot (price, mode, value) VALUES (?, ?, ?)", [currentPrice, action, value], function (err, result) {
                         if (err) throw err;
                     });
+                    if (mode != lm) {
+                        lm = mode;
+                        con.query("UPDATE bot_last SET mode = ?", [mode], function (err, result) {
+                            if (err) throw err;
+                        });
+                    }
                 }
                 lastPrice = currentPrice;
                 if (mode) {
@@ -233,7 +240,10 @@ function websocketConnect() {
             }
         }
     });
-    websocket.on('error', err => { /* handle error */ });
+    websocket.on('error', err => {
+        console.log(date.toLocaleString() + " " + "Websocket error = " + err);
+        process.exit(1); // When running under supervisor, will get restarted
+    });
     websocket.on('close', () => {
         console.log(date.toLocaleString() + " " + "Websocket closed");
         process.exit(1); // When running under supervisor, will get restarted

@@ -32,7 +32,7 @@ var request = https.request(opt, function (res) {
             var last = moment(rows[0].timestamp);
             var now = moment();
             var secondsDiff = now.diff(last, 'seconds');
-            if (secondsDiff > 0) { // 10 minutes
+            if (secondsDiff > 300) { // 5 minutes
                 con.query("SELECT pid FROM bot_last", function(err, rows, fields) {
                     if (err) throw err;
                     if (rows[0].pid) {

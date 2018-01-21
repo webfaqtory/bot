@@ -90,10 +90,15 @@ function doBuy() {
 }
 
 function doSell() {
-    // Use Currency account
+    // Use Currency (ETH) account
     client
         .getAccount(user.currency)
         .then(data => {
+            if (user.limit_sell && user.limit_sell <= data.available) {
+                data.available = parseFloat(user.limit_sell);
+            }else {
+                data.available = parseFloat(data.available);
+            }
             if (user.type == 'market') {
                 size = parseFloat(data.available).toFixed(8);
                 params = {
@@ -104,8 +109,10 @@ function doSell() {
                     'client_oid': uuidv1()
                 };
             }else {
-                var fee = parseFloat(data.available) * (0.3 / 100);
-                data.available = parseFloat(data.available) - fee;
+                if (!user.limit_sell) {
+                    var fee = parseFloat(data.available) * (0.3 / 100);
+                    data.available = parseFloat(data.available) - fee;
+                }
                 size = data.available / user.value;
                 params = {
                     'side': user.action,

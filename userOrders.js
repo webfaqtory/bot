@@ -16,9 +16,11 @@ con.query("SELECT * FROM bot_orders WHERE fill_price IS NULL", function(err, row
     if (err) throw err;
     for (var i = 0; i < rows.length; i++) {
         var user = data.users[rows[i].profile_id];
-        var params = {user: user, row: rows[i]};
-        var json = JSON.stringify(params);
-        childProcess.fork('userOrderUpdate.js', [json]);
+        if (user) {
+            var params = {user: user, row: rows[i]};
+            var json = JSON.stringify(params);
+            childProcess.fork('userOrderUpdate.js', [json]);
+        }
     }
 });
 con.end();
